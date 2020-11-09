@@ -11,7 +11,17 @@ class Active extends Model
         [
             'nombre',
             'descripcion',
-            'encargado',
+            'fecha_ingreso',
         ];
+
+    public function companyActive()
+    {
+        return $this->belongsTo('App\Company');
+    }
+
+    public function transfers()
+    {
+       return $this->hasMany('App\Transfer');
+    }
 
 }

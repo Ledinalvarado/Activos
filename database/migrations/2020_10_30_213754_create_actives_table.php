@@ -16,6 +16,13 @@ class CreateActivesTable extends Migration
         Schema::create('actives', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nombre');
+            $table->string('descripcion');
+            $table->date('fecha_ingreso');
+
+
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

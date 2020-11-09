@@ -13,4 +13,12 @@ class Employee extends Model
             'email',
 
         ];
+
+    public function companyEmployee(){
+        return $this->belongsTo('App\Company');
+    }
+
+    public function transfers(){
+        return $this->hasMany('App\Transfer');
+    }
 }
