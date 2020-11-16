@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
@@ -15,6 +16,10 @@ class CompanyController extends Controller
     public function index()
     {
         //
+
+//        $companies = Company::all();
+        $companies = Company::withTrashed()->get();
+        return view('companies.index')->with(compact('companies'));
     }
 
     /**
@@ -25,6 +30,7 @@ class CompanyController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -36,6 +42,17 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         //
+
+        $this->validate($request, [
+            'nombre' => 'required'
+        ], [
+            'nombre.required' => 'Es necesario ingresar un nombre para la categoría.'
+        ]);
+        $company = new Company();
+        $company::create($request->all());
+//        Company::create($request->all());
+//        return back();
+        return back()->with('notification','La empresa ha sido creada con exito');
     }
 
     /**
@@ -55,9 +72,11 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(Company $company, $id)
     {
         //
+        $compan = Company::findOrFail($id);
+        return view('companies.index')->with(compact('compan'));
     }
 
     /**
@@ -67,9 +86,11 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, Company $company, $id)
     {
         //
+        Company::find($id)->update($request->all());
+        return back()->with('notification', 'La empresa se ha actualizado correctamente.');
     }
 
     /**
@@ -78,8 +99,20 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Company $company,$id)
     {
         //
+        $company = new Company();
+        $company::find($id)->delete();
+
+        return back()->with('notification', 'La empresa se ha deshabilitado correctamente.');
+    }
+
+    public function restore($id)
+    {
+        $company = new Company();
+        $company::withTrashed()->find($id)->restore();
+
+        return back()->with('notification', 'La empresa se ha habilitado correctamente.');
     }
 }

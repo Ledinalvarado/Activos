@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transfer extends Model
 {
     //
+    use SoftDeletes;
+
     protected $fillable = ['fecha_traspaso', 'descripcion', 'observacion'];
 
 

@@ -37,11 +37,11 @@
                 <ul class="navbar-nav mr-auto">
                     @if (auth()->check())
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Empresas</a>
+                            <a class="nav-link" href="{{url('companies/')}}">Empresas</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Empleados</a>
+                            <a class="nav-link" href="{{url('empleados/')}}">Empleados</a>
                         </li>
 
                         <li class="nav-item">
@@ -49,7 +49,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Traspasos</a>
+                            <a class="nav-link" href="{{url('/transfers/')}}">Traspasos</a>
                         </li>
                     @endif
                 </ul>

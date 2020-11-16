@@ -23,6 +23,8 @@ class CreateActivesTable extends Migration
 
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
+
+            $table->softDeletes();
         });
     }
 
