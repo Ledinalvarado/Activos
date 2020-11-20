@@ -46,7 +46,7 @@ class CompanyController extends Controller
         $this->validate($request, [
             'nombre' => 'required'
         ], [
-            'nombre.required' => 'Es necesario ingresar un nombre para la categoría.'
+            'nombre.required' => 'Es necesario ingresar un nombre para la empresa.'
         ]);
         $company = new Company();
         $company::create($request->all());

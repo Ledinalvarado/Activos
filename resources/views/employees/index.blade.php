@@ -28,7 +28,7 @@
                                     <div class="form-group">
                                         <label for="nombre">Nombre</label>
                                         <input type="text" class="form-control" id="nombre" name="nombre"
-                                               placeholder="Digital Zolver">
+                                               placeholder="argueta jo">
                                     </div>
                                     <div class="form-group">
                                         <label for="telefono">Telefono</label>
@@ -36,16 +36,28 @@
                                                placeholder="99999000">
                                     </div>
                                     <div class="form-group">
-                                        <label for="correo">Email</label>
-                                        <input type="email" class="form-control" id="correo" name="correo"
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email"
                                                placeholder="example@gmail.com">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="company_id">Empresa</label>
+                                        <select name="company_id" class="form-control">
+
+                                            @foreach ($companies as $company)
+                                                <option value="{{ $company->id }}">{{ $company->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Crear</button>
                                     </div>
                                 </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-primary">Crear</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -55,8 +67,12 @@
                 <br>
 
                 @if (session('notification'))
-                    <div class="alert alert-success">
-                        {{ session('notification') }}
+
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Bien Hecho!</strong> {{ session('notification') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 @endif
                 <table class="table">
@@ -71,65 +87,89 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Mark</td>
-                        <td>Mark</td>
+                    @foreach($employees as $employee)
+                        <tr>
+                            <th scope="row">00{{$employee->id}}</th>
+                            <td>{{$employee->nombre}}</td>
+                            <td>{{$employee->telefono}}</td>
+                            <td>{{$employee->email}}</td>
 
-                        <td>
 
+                            <td>
 
-                            <div class="row mx-md-n3">
-                                <div class="p-3  ">
-                                    <button type="button" class="btn btn-danger">Danger</button>
-                                </div>
-                                <div class="p-3  ">
-                                    <button type="button" class="btn btn-primary">Success</button>
-                                </div>
-                            </div>
-                        </td>
+                                @if($employee->trashed())
+                                    <div class="row mx-md-n3">
+                                        <div class="p-3  ">
+                                            <a href="/employees/{{$employee->id}}/restaurar" class="btn btn-success"
+                                            >Habilitar</a>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row mx-md-n3">
+                                        <div class="p-3  ">
+                                            <a href="/employees/{{$employee->id}}/eliminar" class="btn btn-danger"
+                                            >Eliminar</a>
+                                        </div>
+                                        <div class="p-3  ">
+                                            <a href="" class="btn btn-primary"
+                                               data-toggle="modal" data-target="#exampleModal">Modificar</a>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
 
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Jacob</td>
-                        <td>Jacob</td>
-
-                        <td>
-                            <div class="row mx-md-n3">
-                                <div class="p-3  ">
-                                    <button type="button" class="btn btn-danger">Danger</button>
-                                </div>
-                                <div class="p-3  ">
-                                    <button type="button" class="btn btn-primary">Success</button>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>Larry</td>
-                        <td>Larry</td>
-
-                        <td>
-                            <div class="row mx-md-n3">
-                                <div class="p-3  ">
-                                    <button type="button" class="btn btn-danger">Danger</button>
-                                </div>
-                                <div class="p-3  ">
-                                    <button type="button" class="btn btn-primary">Success</button>
-                                </div>
-                            </div>
-                        </td>
-
-                    </tr>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
 
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Acciones</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($employee_users as $user)
+                        <tr>
+                            <th scope="row">reg-0{{$user->id}}</th>
+                            <td>{{$user->name}}</td>
+
+                            <td>{{$user->email}}</td>
+
+
+                            <td>
+
+                                @if($employee->trashed())
+                                    <div class="row mx-md-n3">
+                                        <div class="p-3  ">
+                                            <a href="/employees/{{$employee->id}}/restaurar" class="btn btn-success"
+                                            >Habilitar</a>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row mx-md-n3">
+                                        <div class="p-3  ">
+                                            <a href="/employees/{{$employee->id}}/eliminar" class="btn btn-danger"
+                                            >Eliminar</a>
+                                        </div>
+                                        <div class="p-3  ">
+                                            <a href="" class="btn btn-primary"
+                                               data-toggle="modal" data-target="#exampleModal">Modificar</a>
+                                        </div>
+                                    </div>
+                                @endif
+                            </td>
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
 
             </div>
 

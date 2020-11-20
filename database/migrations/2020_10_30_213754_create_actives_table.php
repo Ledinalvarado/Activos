@@ -19,7 +19,7 @@ class CreateActivesTable extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->date('fecha_ingreso');
-
+            $table->string('foto');
 
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');

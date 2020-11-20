@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Active extends Model
 {
-    //
+
     use SoftDeletes;
 
     protected $fillable =
@@ -15,6 +15,7 @@ class Active extends Model
             'nombre',
             'descripcion',
             'fecha_ingreso',
+            'foto',
         ];
 
     public function companyActive()
