@@ -19,9 +19,9 @@ class CreateActivesTable extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->date('fecha_ingreso');
-            $table->string('foto');
+            $table->string('foto')->nullable();
 
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
 
             $table->softDeletes();

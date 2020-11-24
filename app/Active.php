@@ -18,6 +18,8 @@ class Active extends Model
             'foto',
         ];
 
+
+
     public function companyActive()
     {
         return $this->belongsTo('App\Company');

@@ -43,9 +43,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/companies/{id}/restaurar', 'CompanyController@restore')->name('companies-restore');
 
 //    Route::get('empleados/', 'EmployeeController@index')->name('employees');
-    Route::resource('employees', 'EmployeeController');
+    Route::resource('/employees', 'EmployeeController');
     Route::get('/employees/{id}/eliminar', 'EmployeeController@destroy')->name('employees-delete');
     Route::get('/employees/{id}/restaurar', 'EmployeeController@restore')->name('employees-restore');
 
-
+    Route::resource('assets','ActiveController');
 });

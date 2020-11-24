@@ -12,6 +12,13 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    {{--    datepicker--}}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -21,7 +28,7 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-xl navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
@@ -37,21 +44,22 @@
                 <ul class="navbar-nav mr-auto">
                     @if (auth()->check())
                         <li class="nav-item">
-{{--                            <a class="nav-link" href="{{url('companies/')}}">Empresas</a>--}}
+                            {{--                            <a class="nav-link" href="{{url('companies/')}}">Empresas</a>--}}
                             <a class="nav-link" href="{{route('companies.index')}}">Empresas</a>
                         </li>
+                        @if(auth()->user()->company_id!==null)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('employees.index')}}">Empleados</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('employees.index')}}">Empleados</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('assets.index')}}">Activos</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Activos</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/transfers/')}}">Traspasos</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url('/transfers/')}}">Traspasos</a>
+                            </li>
+                        @endif
                     @endif
                 </ul>
 

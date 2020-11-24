@@ -17,10 +17,12 @@ class EmployeeController extends Controller
     public function index()
     {
         //
+        $user_company_id = auth()->user()->company_id;
         $companies = Company::all();
+        $employees = Employee::withTrashed()->where('company_id',$user_company_id)->get();
         $employee_users = User::all();
 //        echo $employee_users;
-        $employees = Employee::withTrashed()->get();
+//        $employees = Employee::withTrashed()->get();
         return view('employees.index')->with(compact('employees', 'employee_users','companies'));
     }
 
@@ -49,12 +51,22 @@ class EmployeeController extends Controller
             'nombre.required' => 'Es necesario ingresar un nombre para el empleado.'
         ]);
         $employee = new Employee();
-//        $employee::create($request->all());
+
 //        echo $employee;
+//        if ($request->isMethod('post') and $request->hasAny(['nombre','telefono','email','company_id'])){
+//            echo 'es post completo';
+//            echo $request;
+//        }else{
+//            echo 'no es post';
+//        }
+//        $employee::create($request->all());
+
+
         $employee->nombre = $request->input('nombre');
         $employee->telefono = $request->input('telefono');
         $employee->email = $request->input('email');
-        $employee->company_id =Company::find($request->input('company_id'));
+        $user_company_id = auth()->user()->company_id;
+        $employee->company_id = $user_company_id;
         echo $employee;
         $employee->save();
 
